@@ -1,9 +1,9 @@
 import pandas as pd
 import math
+from matplotlib import pyplot as plt
 
-df = pd.read_csv('masie_1km_allyears_extent_sqkm.csv', header=1)
+df = pd.read_csv('masie_1km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 x = df['yyyyddd']
-z = df[' (0) Northern_Hemisphere'].values.tolist()
 
 
 def mvgAvg(liste, window=30):
@@ -18,33 +18,19 @@ def mvgAvg(liste, window=30):
             value = value / window
             avg.append(value)
     return avg
-avg = mvgAvg(z)
 
 
-# kürzt x Werte auf den Avg
-def dropper(liste, window=30):
-    x2 = liste
-    i = 0
-    while i < window / 2:
-        # löscht erstes und letztes Item
-        x2.pop(0)
-        x2.pop()
-        i = i + 1
-    return x2
+def useColumns():
+    counter = 0
+    for i in df:
+        if (counter>=1 and counter < 18):
+            column = df[i]
+            avg = mvgAvg(column)
+            plt.plot(column, color='blue')
+            plt.plot(avg, color='red')
+            plt.show()
+        elif(counter>=18):
+            break;
+        counter = counter + 1
 
-
-x2 = dropper(x.values.tolist())
-
-from matplotlib import pyplot as plt
-
-plt.plot(x, z)
-plt.xlabel('Month')
-plt.title('ohne mvg')
-plt.show()
-
-
-#plt.plot(x2,avg)
-plt.plot( avg, color='red')
-plt.xlabel('Month')
-plt.title('mit Mvg')
-plt.show()
+useColumns()
