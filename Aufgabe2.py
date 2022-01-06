@@ -1,3 +1,10 @@
+##eigentlich darf nichts an den Werten geändert werden
+##da 0 ja einfach nur beduetet, das kein Eis vorhanden ist
+
+
+
+
+
 import pandas as pd
 import math
 from matplotlib import pyplot as plt
