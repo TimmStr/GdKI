@@ -4,11 +4,10 @@ import pandas as pd
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 x = df['yyyyddd']
 
-def useColumns():
+def columnPicker():
     counter = 0
     # For Schleife für Spalten aus DF
     for column in df:
-        dayList = []
         minList = []
         maxList = []
         if (counter >= 1 and counter < 18):
@@ -25,8 +24,6 @@ def useColumns():
                 else:
                     date = str(j)
 
-                dayList.append(j)
-
                 for z in range(0, len(actColumn)):
                     dateCompare = str(x[z])
                     if (str(j) in dateCompare):
@@ -40,15 +37,13 @@ def useColumns():
             plt.plot(minList,color='green')
             plt.plot(maxList,color='blue')
             plt.show()
-
-
         elif (counter >= 18):
             print(minList)
             print(maxList)
             break;
         counter = counter + 1
 
-useColumns()
+columnPicker()
 
 
 
