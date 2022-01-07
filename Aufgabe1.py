@@ -2,9 +2,7 @@ import pandas as pd
 import math
 from matplotlib import pyplot as plt
 
-df = pd.read_csv('masie_1km_allyears_extent_sqkm.csv', header=1, delimiter=',')
-x = df['yyyyddd']
-
+df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
 def mvgAvg(liste, window=30):
     avg = []
@@ -20,17 +18,20 @@ def mvgAvg(liste, window=30):
     return avg
 
 
-def useColumns():
+def columnPicker():
     counter = 0
     for i in df:
-        if (counter>=1 and counter < 18):
+        if (counter >= 1 and counter < 18):
             column = df[i]
             avg = mvgAvg(column)
             plt.plot(column, color='blue')
             plt.plot(avg, color='red')
             plt.show()
-        elif(counter>=18):
+        elif (counter >= 18):
             break;
         counter = counter + 1
 
-useColumns()
+def start():
+    columnPicker()
+
+start()

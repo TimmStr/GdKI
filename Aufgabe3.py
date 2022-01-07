@@ -1,7 +1,7 @@
 from matplotlib import pyplot as plt
 import pandas as pd
 
-df = pd.read_csv('masie_1km_allyears_extent_sqkm.csv', header=1, delimiter=',')
+df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 x = df['yyyyddd']
 
 def useColumns():
@@ -46,13 +46,18 @@ def useColumns():
             break;
         counter = counter + 1
 
+#useColumns()
 
-useColumns()
-"""
-liste=['xyz','zys','zzz']
-for i in liste:
-    z=str(i)
-    if 'z'in z:
-        print(z)
-"""
+
+
+
+
+def plotSeasonal():
+    for j in range(1, 365):
+        if (j < 10):
+            date = '00' + str(j)
+        elif (j < 100):
+            date = '0' + str(j)
+        else:
+            date = str(j)
 
