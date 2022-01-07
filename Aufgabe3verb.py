@@ -59,7 +59,7 @@ def columnPicker():
         columnCounter = columnCounter + 1
 
 
-columnPicker()
+#columnPicker()
 
 
 
@@ -95,7 +95,6 @@ def plotSeasonal():
                 plt.title('Column: '+str(columnCounter))
                 plt.xlabel('Tage')
                 plt.ylabel('SQKM')
-                print(colorBlue[colorCounter])
                 plt.plot(secondPlot, label=str(j),
                          color=(colorBlue[colorCounter], 0, colorRed[colorCounter], colorAlpha[colorCounter]))
 
