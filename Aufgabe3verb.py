@@ -1,6 +1,20 @@
 from matplotlib import pyplot as plt
 import pandas as pd
 
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+##Achtung alte Version
+
+
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 dateList = df['yyyyddd']
 

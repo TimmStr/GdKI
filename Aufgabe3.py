@@ -36,7 +36,7 @@ def minMax(column, dateList, columnCounter):
         maxList.append(max)
     plt.xlabel('Tage')
     plt.ylabel('SQKM')
-    plt.title('Column: ' + str(columnCounter))
+    plt.title('Min Max Function   Column: ' + str(columnCounter))
     plt.plot(maxList, color='blue', label='Maximum')
     plt.plot(minList, color='green', label='Minimum')
     plt.legend()
@@ -46,7 +46,7 @@ def minMax(column, dateList, columnCounter):
 def plotSeasonal(column, dateList, columnCounter):
     colorBlue = [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
     colorRed = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
-    colorAlpha = [1, 0.9, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1, 0.2, 0.3, 0.4, 0.6, 0.8, 0.9, 1, 1]
+    colorAlpha = [1, 0.875, 0.75, 0.625, 0.5, 0.375, 0.25, 0.125, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1]
     # columnCounter = 0
     # For Schleife für Spalten aus DF
 
@@ -66,7 +66,7 @@ def plotSeasonal(column, dateList, columnCounter):
             # Abfrage ob bearbeiteter Wert aus For Schleife in Einträgen der Spalte Datum ist
             if (str(j) in yearEquation):
                 secondPlot.append(column[z])
-        plt.title('Column: ' + str(columnCounter))
+        plt.title('Seasonal Function   Column: ' + str(columnCounter))
         plt.xlabel('Tage')
         plt.ylabel('SQKM')
         plt.plot(secondPlot, label=str(j),
@@ -88,8 +88,6 @@ def start(df):
             colorCounter = 0
             minMax(actColumn, dateList, columnCounter)
             plotSeasonal(actColumn, dateList, columnCounter)
-
-
         elif (columnCounter >= 18):
             print(minList)
             print(maxList)
