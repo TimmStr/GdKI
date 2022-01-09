@@ -82,7 +82,7 @@ def start(df):
     for column in df:
         minList = []
         maxList = []
-        if (columnCounter >= 1 and columnCounter < 18):
+        if (columnCounter >= 1 and len(df.columns)):
             print('Durchgang' + str(columnCounter))
             actColumn = df[column]
             colorCounter = 0

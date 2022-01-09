@@ -4,6 +4,12 @@ from matplotlib import pyplot as plt
 
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
+def getName(name):
+    liste=['0','1','2','3','4','5','6','7','8','9']
+    while (name[0] == ' ' or name[0] == '(' or name[0] == ')'or name[0] in liste):
+        name = name[1:]
+    return name
+
 def mvgAvg(liste, window=30):
     avg = []
     start = math.floor(window / 2)
@@ -18,13 +24,17 @@ def mvgAvg(liste, window=30):
     return avg
 
 
-def columnPicker():
+def columnPicker(df):
     counter = 0
-    for i in df:
-        if (counter >= 1 and counter < 18):
-            column = df[i]
-            avg = mvgAvg(column)
-            plt.plot(column, color='blue')
+    for column in df:
+        if (counter >= 1 and counter < len(df.columns)):
+            actColumn = df[column]
+            avg = mvgAvg(actColumn)
+            name=getName(column)
+            plt.title(name)
+            plt.xlabel('Tage')
+            plt.ylabel('SQKM')
+            plt.plot(actColumn, color='blue')
             plt.plot(avg, color='red')
             plt.show()
         elif (counter >= 18):
@@ -32,6 +42,6 @@ def columnPicker():
         counter = counter + 1
 
 def start():
-    columnPicker()
+    columnPicker(df)
 
 start()
