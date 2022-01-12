@@ -53,7 +53,7 @@ def create(name, adf, kpss, acf):
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
 
-    ptext = 'KPSS Test for: %s <br /> %s'% (str(name),str(acf))
+    ptext = 'Autocorrelation Test for: %s <br /> %s'% (str(name),str(acf))
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
     ptext = 'Thank you very much and we look forward to serving you.'

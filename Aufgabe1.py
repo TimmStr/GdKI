@@ -27,7 +27,7 @@ def mvgAvg(liste, window=30):
 def columnPicker(df):
     counter = 0
     for column in df:
-        if (counter >= 1 and counter < len(df.columns)):
+        if (counter >= 1 and counter<len(df.columns)):
             actColumn = df[column]
             avg = mvgAvg(actColumn)
             name=getName(column)

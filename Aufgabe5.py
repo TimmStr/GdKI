@@ -14,30 +14,30 @@ def getName(name):
 
 
 def adf_test(timeseries, name):
-    print()
-    print("Results of Dickey-Fuller Test for: " + name)
+    #print()
+    #print("Results of Dickey-Fuller Test for: " + name)
     dftest = adfuller(timeseries, autolag="AIC")
     dfoutput = pd.Series(dftest[0:4],
                          index=["Test Statistic", "p-value", "#Lags Used", "Number of Observations Used", ], )
 
     for key, value in dftest[4].items():
         dfoutput["Critical Value (%s)" % key] = value
-    print(dfoutput)
-    print()
+    #print(dfoutput)
+    #print()
     # for PDF
     return dfoutput
 
 
 def kpss_test(timeseries, name):
-    print("Results of KPSS Test for: " + name)
+    #print("Results of KPSS Test for: " + name)
     kpsstest = kpss(timeseries, regression="c", nlags="auto")
     kpss_output = pd.Series(
         kpsstest[0:3], index=["Test Statistic", "p-value", "Lags Used"]
     )
     for key, value in kpsstest[3].items():
         kpss_output["Critical Value (%s)" % key] = value
-    print(kpss_output)
-    print()
+    #print(kpss_output)
+    #print()
     # for PDF
     return kpss_output
 
@@ -63,16 +63,16 @@ from CreatePdf import create
 def columnPicker():
     counter = 0
     for column in df:
-        if (counter >= 1 and len(df.columns)):
+        if (counter >= 1 and counter<len(df.columns)):
             name = getName(column)
             actColumn = df[column]
             pdfAdf = adf_test(actColumn, name)
             pdfKpss = kpss_test(actColumn, name)
             stlDecomposition(actColumn, name)
-            print()
-            print("Autocorrelation for column:" + str(name))
+            #print()
+            #print("Autocorrelation for column:" + str(name))
             pdfAcf = acf(actColumn)
-            print(pdfAcf)
+            #print(pdfAcf)
             create(name,pdfAdf,pdfKpss,pdfAcf)
         elif (counter >= 18):
             break;
