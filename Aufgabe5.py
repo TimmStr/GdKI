@@ -1,7 +1,6 @@
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.stattools import kpss
 import pandas as pd
-from matplotlib import pyplot as plt
 
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
@@ -14,31 +13,22 @@ def getName(name):
 
 
 def adf_test(timeseries, name):
-    #print()
-    #print("Results of Dickey-Fuller Test for: " + name)
     dftest = adfuller(timeseries, autolag="AIC")
     dfoutput = pd.Series(dftest[0:4],
                          index=["Test Statistic", "p-value", "#Lags Used", "Number of Observations Used", ], )
 
     for key, value in dftest[4].items():
         dfoutput["Critical Value (%s)" % key] = value
-    #print(dfoutput)
-    #print()
-    # for PDF
     return dfoutput
 
 
 def kpss_test(timeseries, name):
-    #print("Results of KPSS Test for: " + name)
     kpsstest = kpss(timeseries, regression="c", nlags="auto")
     kpss_output = pd.Series(
         kpsstest[0:3], index=["Test Statistic", "p-value", "Lags Used"]
     )
     for key, value in kpsstest[3].items():
         kpss_output["Critical Value (%s)" % key] = value
-    #print(kpss_output)
-    #print()
-    # for PDF
     return kpss_output
 
 
@@ -69,13 +59,10 @@ def columnPicker():
             pdfAdf = adf_test(actColumn, name)
             pdfKpss = kpss_test(actColumn, name)
             stlDecomposition(actColumn, name)
-            #print()
-            #print("Autocorrelation for column:" + str(name))
             pdfAcf = acf(actColumn)
-            #print(pdfAcf)
             create(name,pdfAdf,pdfKpss,pdfAcf)
         elif (counter >= 18):
-            break;
+            break
         counter = counter + 1
 
 def start():

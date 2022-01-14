@@ -62,7 +62,7 @@ def create(name, adf, kpss, acf):
     ptext = 'Sincerely,'
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 48))
-    ptext = 'Ima Sucker'
+    ptext = 'Group 3'
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
     doc.build(Story)

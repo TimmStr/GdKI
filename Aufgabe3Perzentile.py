@@ -15,7 +15,7 @@ def calcPerzent(liste, perzentil):
     n = len(liste)
     maxAfterPerzentil = n * (perzentil / 100)
     sortedListe = sorted(liste)
-    print(sortedListe[n - int(maxAfterPerzentil)])
+    #print(sortedListe[n - int(maxAfterPerzentil)])
     return sortedListe[n - int(maxAfterPerzentil)]
 
 
@@ -119,8 +119,8 @@ def start(df):
             minMax(actColumn, dateList, name)
             plotSeasonal(actColumn, dateList, name)
         elif (columnCounter >= 18):
-            print(minList)
-            print(maxList)
+            #print(minList)
+            #print(maxList)
             break;
         columnCounter = columnCounter + 1
 
