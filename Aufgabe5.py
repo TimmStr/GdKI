@@ -12,18 +12,17 @@ def getName(name):
     return name
 
 
-def adf_test(timeseries, name):
+def adf_test(timeseries):
     dftest = adfuller(timeseries, autolag="AIC")
-    print(dftest)
     dfoutput = pd.Series(dftest[0:4],
                          index=["Test Statistic", "p-value", "#Lags Used", "Number of Observations Used", ], )
-    #speziell für Critical Values
+    # speziell für Critical Values
     for key, value in dftest[4].items():
         dfoutput["Critical Value (%s)" % key] = value
     return dfoutput
 
 
-def kpss_test(timeseries, name):
+def kpss_test(timeseries):
     kpsstest = kpss(timeseries, regression="c", nlags="auto")
     kpss_output = pd.Series(
         kpsstest[0:3], index=["Test Statistic", "p-value", "Lags Used"]
@@ -50,48 +49,49 @@ def stlDecomposition(timeseries, name):
 
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.graphics.tsaplots import plot_pacf
-def calcAcf(column, timeline,name):
-    data = pd.DataFrame(list(zip(timeline,column ))).set_index(0)[1]
 
+
+def calcAcf(column, timeline, name):
+    data = pd.DataFrame(list(zip(timeline, column))).set_index(0)[1]
 
     plot_acf(data)
-    plt.title('Autocorrelation: '+name)
-    filename=name+'_autocorr.png'
+    plt.title('Autocorrelation: ' + name)
+    filename = name + '_autocorr.png'
     plt.savefig(filename)
 
     plot_pacf(data)
-    filename=name+'_part_autocorr.png'
-    plt.title('Partial Autocorrelation: '+name)
+    filename = name + '_part_autocorr.png'
+    plt.title('Partial Autocorrelation: ' + name)
     plt.savefig(filename)
 
 
-
-
-#from statsmodels.tsa.stattools import acf
 from CreatePdf import create
+
+
 def columnPicker():
     counter = 0
     date = df['yyyyddd']
     for column in df:
-        if (counter >= 1 and counter<len(df.columns)):
+        if (counter >= 1 and counter < len(df.columns)):
             name = getName(column)
-            actColumn = df[column]
 
+            pdfAdf = adf_test(df[column])
 
-            pdfAdf = adf_test(actColumn, name)
+            pdfKpss = kpss_test(df[column])
 
-            pdfKpss = kpss_test(actColumn, name)
+            stlDecomposition(df[column], name)
 
-            stlDecomposition(actColumn, name)
+            calcAcf(df[column], date, name)
 
-            calcAcf(actColumn,date,name)
-
-            create(name,pdfAdf,pdfKpss)
+            create(name, pdfAdf, pdfKpss)
         elif (counter >= 18):
             break
         counter = counter + 1
 
+
 def start():
     columnPicker()
+
+
 
 start()

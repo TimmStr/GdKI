@@ -11,7 +11,6 @@ import os
 
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
-
 def deleteFiles(name):
     filename=name+'_autocorr.png'
     os.remove(filename)
@@ -20,7 +19,6 @@ def deleteFiles(name):
     filename=name+'.png'
     os.remove(filename)
 
-
 def create(name, adf, kpss):
     dateToday = str(date.today())
     filename = str(name) + '_' + dateToday + '.pdf'
@@ -28,19 +26,37 @@ def create(name, adf, kpss):
                             rightMargin=72, leftMargin=72,
                             topMargin=72, bottomMargin=18)
     Story = []
-    imageName = str(name) + '.png'
-    logo = imageName
-    formatted_time = time.ctime()
-    im = Image(logo, width=320, height=240)
-    Story.append(im)
     styles = getSampleStyleSheet()
-    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
-    ptext = '%s' % formatted_time
+
+    ptext = 'Bericht für die Region: '+name
+    Story.append(Paragraph(ptext, styles["Title"]))
+    Story.append(Spacer(1, 12))
+
+
+    formatted_time = time.ctime()
+    ptext = 'Erstellt am: %s' % formatted_time +'<br /> <br /> '
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
 
-    ptext = 'Dickey-Fuller Test for: %s <br /> Test Statistic: %s <br /> p-value: %s <br /> Lags used: %s <br /> Number of Observations Used: %s <br /> Critical Value 1: %s <br /> Critical Value 5: %s <br /> Critical Value 10: %s' % (str(name),
-                                          adf[0],
+    ptext = 'STL Decomposition der Region : %s' % (str(name))
+    Story.append(Paragraph(ptext, styles["Heading2"]))
+    Story.append(Spacer(1, 12))
+
+    imageName = str(name) + '.png'
+    logo = imageName
+    im = Image(logo, width=320, height=240)
+    Story.append(im)
+
+    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
+
+    ptext = '<br /> <br /> '
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(Spacer(1, 12))
+
+    ptext = 'Dickey-Fuller Test der Region: %s' % (str(name))
+    Story.append(Paragraph(ptext, styles["Heading2"]))
+    Story.append(Spacer(1, 12))
+    ptext = 'Test Statistic: %s <br /> p-value: %s <br /> Lags used: %s <br /> Number of Observations Used: %s <br /> Critical Value 1: %s <br /> Critical Value 5: %s <br /> Critical Value 10: %s' % (adf[0],
                                           adf[1],
                                           adf[2],
                                           adf[3],
@@ -51,8 +67,16 @@ def create(name, adf, kpss):
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
 
-    ptext = 'KPSS Test for: %s <br /> Test Statistic: %s <br /> p-value: %s <br /> Lags used: %s <br /> Critical Value 1: %s <br /> Critical Value 2.5: %s<br /> Critical Value 5: %s <br /> Critical Value 10: %s' % (str(name),
-                                          kpss[0],
+    ptext = '<br /> <br /> '
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(Spacer(1, 12))
+
+    ptext = 'KPSS Test der Region: %s' % (str(name))
+    Story.append(Paragraph(ptext, styles["Heading2"]))
+    Story.append(Spacer(1, 12))
+
+
+    ptext = 'Test Statistic: %s <br /> p-value: %s <br /> Lags used: %s <br /> Critical Value 1: %s <br /> Critical Value 2.5: %s<br /> Critical Value 5: %s <br /> Critical Value 10: %s' % (kpss[0],
                                           kpss[1],
                                           kpss[2],
                                           kpss[6],
@@ -60,12 +84,13 @@ def create(name, adf, kpss):
                                           kpss[4],
                                           kpss[3])
 
+
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
 
-    #ptext = 'Autocorrelation Test for: %s <br /> %s'% (str(name),str(acf))
-    #Story.append(Paragraph(ptext, styles["Normal"]))
-    #Story.append(Spacer(1, 12))
+    ptext = 'Autocorrelation der Region : %s' % (str(name))
+    Story.append(Paragraph(ptext, styles["Heading2"]))
+    Story.append(Spacer(1, 12))
 
     imageName = str(name) + '_autocorr.png'
     logo = imageName
@@ -76,6 +101,9 @@ def create(name, adf, kpss):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
+    ptext = 'Partielle Autocorrelation der Region : %s' % (str(name))
+    Story.append(Paragraph(ptext, styles["Heading2"]))
+    Story.append(Spacer(1, 12))
 
     imageName = str(name) + '_part_autocorr.png'
     logo = imageName
@@ -84,9 +112,8 @@ def create(name, adf, kpss):
     ptext = 'Sincerely,'
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 48))
-    ptext = 'Group 3'
-    Story.append(Paragraph(ptext, styles["Normal"]))
-    Story.append(Spacer(1, 12))
+
     doc.build(Story)
+    print(name+".pdf erstellt")
     deleteFiles(name)
 
