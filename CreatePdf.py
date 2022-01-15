@@ -7,11 +7,21 @@ from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+import os
 
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
 
-def create(name, adf, kpss, acf):
+def deleteFiles(name):
+    filename=name+'_autocorr.png'
+    os.remove(filename)
+    filename=name+'_part_autocorr.png'
+    os.remove(filename)
+    filename=name+'.png'
+    os.remove(filename)
+
+
+def create(name, adf, kpss):
     dateToday = str(date.today())
     filename = str(name) + '_' + dateToday + '.pdf'
     doc = SimpleDocTemplate(filename, pagesize=A4,
@@ -53,12 +63,24 @@ def create(name, adf, kpss, acf):
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
 
-    ptext = 'Autocorrelation Test for: %s <br /> %s'% (str(name),str(acf))
-    Story.append(Paragraph(ptext, styles["Normal"]))
-    Story.append(Spacer(1, 12))
+    #ptext = 'Autocorrelation Test for: %s <br /> %s'% (str(name),str(acf))
+    #Story.append(Paragraph(ptext, styles["Normal"]))
+    #Story.append(Spacer(1, 12))
+
+    imageName = str(name) + '_autocorr.png'
+    logo = imageName
+    im = Image(logo, width=320, height=240)
+    Story.append(im)
+
     ptext = 'Thank you very much and we look forward to serving you.'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
+
+
+    imageName = str(name) + '_part_autocorr.png'
+    logo = imageName
+    im = Image(logo, width=320, height=240)
+    Story.append(im)
     ptext = 'Sincerely,'
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 48))
@@ -66,4 +88,5 @@ def create(name, adf, kpss, acf):
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
     doc.build(Story)
+    deleteFiles(name)
 

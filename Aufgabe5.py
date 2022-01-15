@@ -14,9 +14,10 @@ def getName(name):
 
 def adf_test(timeseries, name):
     dftest = adfuller(timeseries, autolag="AIC")
+    print(dftest)
     dfoutput = pd.Series(dftest[0:4],
                          index=["Test Statistic", "p-value", "#Lags Used", "Number of Observations Used", ], )
-
+    #speziell für Critical Values
     for key, value in dftest[4].items():
         dfoutput["Critical Value (%s)" % key] = value
     return dfoutput
@@ -47,20 +48,45 @@ def stlDecomposition(timeseries, name):
     plt.show()
 
 
-from statsmodels.tsa.stattools import acf
+from statsmodels.graphics.tsaplots import plot_acf
+from statsmodels.graphics.tsaplots import plot_pacf
+def calcAcf(column, timeline,name):
+    data = pd.DataFrame(list(zip(timeline,column ))).set_index(0)[1]
 
+
+    plot_acf(data)
+    plt.title('Autocorrelation: '+name)
+    filename=name+'_autocorr.png'
+    plt.savefig(filename)
+
+    plot_pacf(data)
+    filename=name+'_part_autocorr.png'
+    plt.title('Partial Autocorrelation: '+name)
+    plt.savefig(filename)
+
+
+
+
+#from statsmodels.tsa.stattools import acf
 from CreatePdf import create
 def columnPicker():
     counter = 0
+    date = df['yyyyddd']
     for column in df:
         if (counter >= 1 and counter<len(df.columns)):
             name = getName(column)
             actColumn = df[column]
+
+
             pdfAdf = adf_test(actColumn, name)
+
             pdfKpss = kpss_test(actColumn, name)
+
             stlDecomposition(actColumn, name)
-            pdfAcf = acf(actColumn)
-            create(name,pdfAdf,pdfKpss,pdfAcf)
+
+            calcAcf(actColumn,date,name)
+
+            create(name,pdfAdf,pdfKpss)
         elif (counter >= 18):
             break
         counter = counter + 1
