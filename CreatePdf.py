@@ -53,7 +53,7 @@ def create(name, adf, kpss):
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    ptext = 'Dickey-Fuller Test der Region: %s' % (str(name))
+    ptext = 'Augmented Dickey-Fuller Test der Region: %s' % (str(name))
     Story.append(Paragraph(ptext, styles["Heading2"]))
     Story.append(Spacer(1, 12))
     ptext = 'Test Statistic: %s <br /> p-value: %s <br /> Lags used: %s <br /> Number of Observations Used: %s <br /> Critical Value 1: %s <br /> Critical Value 5: %s <br /> Critical Value 10: %s' % (adf[0],
@@ -66,12 +66,38 @@ def create(name, adf, kpss):
 
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
+    if(adf[0]>0):
+        ptext = 'Die Zeitreihe ist wahrscheinlich nicht stationär, da der Test Statistic Wert : %s größer als 0 ist.' % (adf[0])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
+    else:
+        ptext = 'Die Zeitreihe ist wahrscheinlich stationär, da der Test Statistic Wert : %s kleiner als 0 ist.' % (adf[0])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
 
-    ptext = '<br /> <br /> '
+    if(adf[1]>0.05):
+        ptext = 'Die Zeitreihe ist nicht stationär, da der p-Wert: %s größer als 0.05 ist.' % (adf[1])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
+    else:
+        ptext = 'Die Zeitreihe ist stationär, da der p-Wert: %s kleiner als 0.05 ist.' % (adf[1])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
+    if(adf[0]>adf[6]):
+        ptext = 'Die Zeitreihe ist wahrscheinlich nicht stationär, da der Test Statistic Wert: %s größer als %s ist.' % (adf[0],adf[6])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
+    else:
+        ptext = 'Die Zeitreihe ist wahrscheinlich stationär, da der Test Statistic Wert: %s kleiner als der Critical Value(10): %s ist.' % (adf[0],adf[6])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
+
+
+    ptext = '<br /> <br /> <br /> <br />'
     Story.append(Paragraph(ptext, styles["Justify"]))
     Story.append(Spacer(1, 12))
 
-    ptext = 'KPSS Test der Region: %s' % (str(name))
+    ptext = '<br /> KPSS Test der Region: %s' % (str(name))
     Story.append(Paragraph(ptext, styles["Heading2"]))
     Story.append(Spacer(1, 12))
 
@@ -87,6 +113,26 @@ def create(name, adf, kpss):
 
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
+
+    if(kpss[1]>0.05):
+        ptext = 'Die Zeitreihe ist stationär, da der p-Wert: %s größer als 0.05 ist.' % (kpss[1])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
+    else:
+        ptext = 'Die Zeitreihe ist nicht stationär, da der p-Wert: %s kleiner als 0.05 ist.' % (kpss[1])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
+
+    if(kpss[0]>kpss[3]):
+        ptext = 'Die Zeitreihe ist wahrscheinlich nicht stationär, da der Test Statistic Wert: %s größer als %s ist.' % (kpss[0],kpss[3])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
+    else:
+        ptext = 'Die Zeitreihe ist wahrscheinlich stationär, da der Test Statistic Wert: %s kleiner als der Critical Value(10): %s ist.' % (kpss[0],kpss[3])
+        Story.append(Paragraph(ptext, styles["Normal"]))
+        Story.append(Spacer(1, 12))
+
+
 
     ptext = 'Autocorrelation der Region : %s' % (str(name))
     Story.append(Paragraph(ptext, styles["Heading2"]))
