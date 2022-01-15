@@ -1,6 +1,8 @@
 from matplotlib import pyplot as plt
 import pandas as pd
+from LoadData import pullMasie
 
+pullMasie()
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
 
@@ -73,16 +75,16 @@ def minMax(column, dateList, columnCounter):
 
 
 def plotSeasonal(column, dateList, columnCounter):
-    colorBlue = [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-    colorRed = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
-    colorAlpha = [1, 0.875, 0.75, 0.625, 0.5, 0.375, 0.25, 0.125, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1]
+    colorBlue = [1, 1, 1, 1, 1, 1, 1, 1, 0,0, 0, 0, 0, 0, 0, 0, 0]
+    colorRed = [0, 0, 0, 0, 0, 0, 0, 0, 1,1, 1, 1, 1, 1, 1, 1, 1]
+    colorAlpha = [1, 0.875, 0.75, 0.625, 0.5, 0.375, 0.25, 0.125, 0.05,0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1]
     # columnCounter = 0
     # For Schleife für Spalten aus DF
 
     colorCounter = 0
 
     # bringen der Zahlen ins richtige Zahlenformat damit Vergleich ermöglicht wird
-    for j in range(2006, 2021):
+    for j in range(2006, 2022):
         secondPlot = []
         colorCounter = colorCounter + 1
 
