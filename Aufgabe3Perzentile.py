@@ -3,7 +3,7 @@ import pandas as pd
 from LoadData import pullMasie
 import numpy as np
 
-pullMasie()
+#pullMasie()
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
 
@@ -63,7 +63,7 @@ def minMax(column, dateList, columnCounter):
         perzent50.append(calcPerzent(perzent, 50))
         perzent75.append(calcPerzent(perzent, 75))
 
-    plt.xlabel('Tage')
+    plt.xlabel('Monat')
     plt.ylabel('SQKM')
     plt.title('Min Max Function   Column: ' + str(columnCounter))
     plt.xticks(np.arange(0, 365, 31.0),
@@ -102,7 +102,7 @@ def plotSeasonal(column, dateList, columnCounter):
                 secondPlot.append(column[z])
 
         plt.title('Seasonal Function   Column: ' + str(columnCounter))
-        plt.xlabel('Tage')
+        plt.xlabel('Monat')
         plt.ylabel('SQKM')
         plt.xticks(np.arange(0, 365, 31.0),['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'])
         plt.plot(secondPlot, label=str(j),
