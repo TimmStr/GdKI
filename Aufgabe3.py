@@ -3,6 +3,19 @@ import pandas as pd
 
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
+def getMonth():
+    liste=[]
+    for i in range(1,13):
+        for j in range(1, 32):
+            z=i+j/100
+            liste.append(z)
+    for i in range(0,8):
+        liste.pop()
+    print(liste)
+
+    return liste
+
+
 def getName(name):
     liste=['0','1','2','3','4','5','6','7','8','9']
     while (name[0] == ' ' or name[0] == '(' or name[0] == ')'or name[0] in liste):
@@ -47,7 +60,8 @@ def minMax(column, dateList, columnCounter):
     plt.legend()
     plt.show()
 
-
+import numpy as np
+import matplotlib.ticker as ticker
 def plotSeasonal(column, dateList, columnCounter):
     colorBlue = [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
     colorRed = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
@@ -72,11 +86,17 @@ def plotSeasonal(column, dateList, columnCounter):
             if (str(j) in yearEquation):
                 secondPlot.append(column[z])
         plt.title('Seasonal Function   Column: ' + str(columnCounter))
-        plt.xlabel('Tage')
+        plt.xlabel('Monat')
+        x_ticks_labels = getMonth()
+        print(min(x_ticks_labels))
+        print(max(x_ticks_labels))
+        plt.xticks(np.arange(min(x_ticks_labels),max(x_ticks_labels)+1,1))
         plt.ylabel('SQKM')
         plt.plot(secondPlot, label=str(j),
                  color=(colorBlue[colorCounter], 0, colorRed[colorCounter], colorAlpha[colorCounter]))
-        ##ging nicht mit cmap = seismic
+
+        #plt.plot(x_ticks_labels,secondPlot, label=str(j),
+        #         color=(colorBlue[colorCounter], 0, colorRed[colorCounter], colorAlpha[colorCounter]))
 
     plt.legend()
     plt.show()

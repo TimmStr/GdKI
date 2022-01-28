@@ -2,7 +2,7 @@ from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.stattools import kpss
 import pandas as pd
 from LoadData import pullMasie
-
+import numpy as np
 pullMasie()
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
@@ -56,12 +56,15 @@ from statsmodels.graphics.tsaplots import plot_pacf
 def calcAcf(column, timeline, name):
     data = pd.DataFrame(list(zip(timeline, column))).set_index(0)[1]
 
-    plot_acf(data)
+    plot_acf(data,lags=5816)
     plt.title('Autocorrelation: ' + name)
+    plt.xticks(np.arange(0,5816,363),
+               ['06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22'])
     filename = name + '_autocorr.png'
+    plt.xlabel('Jahr')
     plt.savefig(filename)
 
-    plot_pacf(data)
+    plot_pacf(data,lags=40)
     filename = name + '_part_autocorr.png'
     plt.title('Partial Autocorrelation: ' + name)
     plt.savefig(filename)

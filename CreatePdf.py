@@ -143,11 +143,9 @@ def create(name, adf, kpss):
     im = Image(logo, width=320, height=240)
     Story.append(im)
 
-    ptext = 'Thank you very much and we look forward to serving you.'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
 
-    ptext = 'Partielle Autocorrelation der Region : %s' % (str(name))
+
+    ptext = '<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />  <br /> <br /> Partielle Autocorrelation der Region : %s' % (str(name))
     Story.append(Paragraph(ptext, styles["Heading2"]))
     Story.append(Spacer(1, 12))
 
@@ -155,9 +153,7 @@ def create(name, adf, kpss):
     logo = imageName
     im = Image(logo, width=320, height=240)
     Story.append(im)
-    ptext = 'Sincerely,'
-    Story.append(Paragraph(ptext, styles["Normal"]))
-    Story.append(Spacer(1, 48))
+
 
     doc.build(Story)
     print(name+".pdf erstellt")

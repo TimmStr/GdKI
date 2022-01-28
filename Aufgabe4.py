@@ -17,13 +17,13 @@ def checkForStationary(ice, datelist):
     plt.title("Starting Data")
     plt.plot(data)
     plt.show()
-    #print(df.columns)
+    print(df.columns)
 
     # AD Fuller test
     print("1. AD Fuller test")
-    #result = adfuller(data.values)
-    #print('ADF Statistic: %f' % result[0])
-    #print('p-value: %f' % result[1])
+    result = adfuller(data.values)
+    print('ADF Statistic: %f' % result[0])
+    print('p-value: %f' % result[1])
     plot_acf(data)
     plot_pacf(data)
     plt.show()
@@ -60,7 +60,7 @@ def start(df):
         if (columnCounter >= 1 and len(df.columns)):
             name = getName(column)
             actColumn = df[column]
-            checkForStationary(actColumn, dateList)
+            checkForStationary(actColumn, dateList, name)
         elif (columnCounter >= 18):
             break;
         columnCounter = columnCounter + 1
