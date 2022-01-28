@@ -2,7 +2,7 @@ import pandas as pd
 import math
 from matplotlib import pyplot as plt
 from LoadData import pullMasie
-
+import numpy as np
 pullMasie()
 
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
@@ -35,8 +35,10 @@ def columnPicker(df):
             avg = mvgAvg(actColumn)
             name=getName(column)
             plt.title(name)
-            plt.xlabel('Tage')
+            plt.xlabel('Jahr')
             plt.ylabel('SQKM')
+            plt.xticks(np.arange(0, len(actColumn), 363.0),
+                       ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17','18','19','20','21','22'])
             plt.plot(actColumn, color='blue')
             plt.plot(avg, color='red')
             plt.show()
