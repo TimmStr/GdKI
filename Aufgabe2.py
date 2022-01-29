@@ -1,6 +1,8 @@
 import pandas as pd
 import csv
+from LoadData import pullMasie
 
+pullMasie()
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
 
@@ -40,16 +42,20 @@ def insertNumbers(dateList, df):
     for i in range(0, len(compareList) - 1):
         dateCompare = str(compareList[indexCounter])
         if (dateCompare not in dateList):
-            print(dateCompare)
+            print('fehlender Wert: ' + str(dateCompare))
             row = []
             for column in df:
+                vierTageDurchschnitt = 0
+                dfAlsListe = df[column].tolist()
                 if (column == 'yyyyddd'):
                     row.append(dateCompare)
                 else:
-                    mean_df = df[column].mean()
+                    for j in range(-2, 2):
+                        zeile = dfAlsListe[i + j]
+                        vierTageDurchschnitt = vierTageDurchschnitt + zeile
+                    mean_df = vierTageDurchschnitt / 4
                     gerundet = round(mean_df, 2)
                     row.append(str(gerundet))
-            print(str(dateCompare) + ' dateCompare')
             csvInserter(indexCounter + 2, row)
             indexCounter = indexCounter + 1
             addedValues = addedValues + 1
@@ -60,4 +66,5 @@ def insertNumbers(dateList, df):
 
 def start():
     insertNumbers(df['yyyyddd'].apply(str).tolist(), df)
+
 start()
