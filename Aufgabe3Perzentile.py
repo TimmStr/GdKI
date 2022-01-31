@@ -6,7 +6,6 @@ import numpy as np
 #pullMasie()
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
-
 def getName(name):
     liste = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     while (name[0] == ' ' or name[0] == '(' or name[0] == ')' or name[0] in liste):

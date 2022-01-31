@@ -16,7 +16,6 @@ def getName(name):
 def doArima(column,name):
     model = ARIMA(column, order=(3,1,2))
     results = model.fit(disp=-1)
-
     # given data
     plt.plot(column)
     # estimated differences

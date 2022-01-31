@@ -79,7 +79,6 @@ def insertNumbers(dateList, df):
     print('Fehlende Werte: ' + str(addedValues))
 
 
-
 def start():
     insertNumbers(df['yyyyddd'].apply(str).tolist(), df)
 
