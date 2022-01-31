@@ -67,7 +67,6 @@ def calcAcf(column, timeline, name):
     plt.title('Partial Autocorrelation: ' + name)
     plt.savefig(filename)
 
-
 from CreatePdf import create
 
 

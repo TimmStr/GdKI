@@ -13,7 +13,6 @@ def getName(name):
         name = name[1:]
     return name
 
-
 def calcPerzent(liste, perzentil):
     liste=pd.DataFrame(liste)
     wert=liste.quantile(q=perzentil/100)
