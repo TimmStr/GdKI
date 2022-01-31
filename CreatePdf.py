@@ -158,4 +158,3 @@ def create(name, adf, kpss):
     doc.build(Story)
     print(name+".pdf erstellt")
     deleteFiles(name)
-
