@@ -29,26 +29,21 @@ def mvgAvg(liste, window=30):
 
 
 
-def columnPicker(df):
-    counter = 0
+def start(df):
     for column in df:
-        if (counter >= 1 and counter<len(df.columns)):
+        if column!='yyyyddd':
             actColumn = df[column]
             avg = mvgAvg(actColumn)
             name=getName(column)
             plt.title(name)
             plt.xlabel('Jahr')
             plt.ylabel('SQKM')
-            plt.xticks(np.arange(0, len(actColumn), 363.0),
+            plt.xticks(np.arange(0, len(actColumn), 365.0),
                        ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17','18','19','20','21','22'])
             plt.plot(actColumn, color='blue')
             plt.plot(avg, color='red')
             plt.show()
-        elif (counter >= 18):
-            break;
-        counter = counter + 1
 
-def start():
-    columnPicker(df)
+
 
 start()

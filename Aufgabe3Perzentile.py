@@ -64,9 +64,8 @@ def minMax(column, dateList, columnCounter):
     plt.xlabel('Monat')
     plt.ylabel('SQKM')
     plt.title('Min Max Function   Column: ' + str(columnCounter))
-    plt.xticks(np.arange(0, 365, 30.5))
-               #,
-               #['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'])
+    plt.xticks(np.arange(0, 365, 30.5),
+    ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'])
     plt.plot(maxList, color='blue', label='Maximum')
     plt.plot(perzent75, color='cyan', label='Perzentil 75')
     plt.plot(perzent50, color='yellow', label='Perzentil 50')
@@ -75,8 +74,6 @@ def minMax(column, dateList, columnCounter):
     counter=0
     for i in minList:
         counter=counter+1
-        print(counter)
-        print(i)
     plt.legend()
     plt.show()
 
@@ -120,15 +117,13 @@ def start(df):
     columnCounter = 0
     dateList = df['yyyyddd']
     for column in df:
-        if (columnCounter >= 1 and columnCounter < len(df.columns)):
+        if column!='yyyyddd':
             name = getName(column)
             print('Durchgang' + str(columnCounter))
             actColumn = df[column]
             minMax(actColumn, dateList, name)
             plotSeasonal(actColumn, dateList, name)
-        elif (columnCounter >= 18):
-            break;
-        columnCounter = columnCounter + 1
+
 
 
 start(df)

@@ -1,7 +1,6 @@
 # https://www.blog.pythonlibrary.org/2010/03/08/a-simple-step-by-step-reportlab-tutorial/
 
 from datetime import date
-import pandas as pd
 import time
 from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.lib.pagesizes import A4
@@ -9,7 +8,6 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 import os
 
-df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
 
 def deleteFiles(name):
     filename=name+'_autocorr.png'
@@ -20,8 +18,11 @@ def deleteFiles(name):
     os.remove(filename)
 
 def create(name, adf, kpss):
+    if not os.path.exists('PDF'):
+        os.mkdir('PDF')
+
     dateToday = str(date.today())
-    filename = str(name) + '_' + dateToday + '.pdf'
+    filename = 'PDF/'+str(name) + '_' + dateToday + '.pdf'
     doc = SimpleDocTemplate(filename, pagesize=A4,
                             rightMargin=72, leftMargin=72,
                             topMargin=72, bottomMargin=18)
@@ -157,4 +158,4 @@ def create(name, adf, kpss):
 
     doc.build(Story)
     print(name+".pdf erstellt")
-    deleteFiles(name)
+
