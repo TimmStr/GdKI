@@ -114,12 +114,11 @@ def plotSeasonal(column, dateList, columnCounter):
 
 
 def start(df):
-    columnCounter = 0
     dateList = df['yyyyddd']
     for column in df:
         if column!='yyyyddd':
             name = getName(column)
-            print('Durchgang' + str(columnCounter))
+            print('Durchgang: ' + str(name))
             actColumn = df[column]
             minMax(actColumn, dateList, name)
             plotSeasonal(actColumn, dateList, name)
