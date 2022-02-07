@@ -66,6 +66,7 @@ def forecastAnalysisByColumn(data, name):
     # perform SARIMA - print result and retrieve data
     # p, q, d as order of Autoregression,
     # Integration and MA terms for non-seasonal and seasonal component
+    # enter all number including d manually if you are using auto_arima
     forecast, train, test = performSARIMA(data, 12, 14/15,
                                           p=4, d=d, q=0, P=3, D=0, Q=0)
 
@@ -111,7 +112,9 @@ def makeDataStationaryByDiff(data):
     # perform till stationary
     while adFullerTest(data) > 0.05:
         print("Data was not stationary.")
-        # diff data to make it stationary
+        # diff data to make data seasonal stationary 12 = months
+        # data = data.diff(12).dropna()
+        # diff to make data trend stationary
         data = data.diff().dropna()
         countOfIntegration = countOfIntegration+1
     # double check with kpss - desired result = 0.1
@@ -140,7 +143,7 @@ def performSARIMA(data, seasonalFactor, splitFactor, p, d, q, P, D, Q):
     print(results.summary())
     # acutal forecast with sarima
     # seasonaFactor m for 12 Months equals forecast till end of 2020
-    forecast = results.predict(1, n + seasonalFactor*10)
+    forecast = results.predict(1, n + seasonalFactor)
     return forecast, train, test
 
 def start(df):
