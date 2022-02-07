@@ -45,6 +45,7 @@ def prophet_all(data):
             # make forecast based on future-dataframe
             forecast = m.predict(future)
             # plot forecast of 2020
+            print(str(column))
             fig1 = m.plot(forecast,xlabel='Year',ylabel='SQKM')
             fig1.show()
             # plot seasonal components of dataset
