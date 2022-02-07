@@ -33,7 +33,7 @@ def prophet_all(data):
         if column != 'yyyyddd':
             df_pr = data[['yyyyddd', column]]
             # filter years - from 2006 - 2019
-            df_pr = df_pr.iloc[:5071]
+            df_pr = df_pr.iloc[:5114]
             # format columns for prophet
             df_pr.columns = ['ds', 'y']
             df_pr['ds'] = formatDate(df_pr['ds'])
