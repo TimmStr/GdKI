@@ -1,9 +1,7 @@
 import pandas as pd
 import math
 from matplotlib import pyplot as plt
-from LoadData import pullMasie
 import numpy as np
-#pullMasie()
 
 
 df = pd.read_csv('masie_4km_allyears_extent_sqkm.csv', header=1, delimiter=',')
